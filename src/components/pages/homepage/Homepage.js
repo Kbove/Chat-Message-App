@@ -27,6 +27,8 @@ function Homepage() {
         setUserFormData({ ...userFormData, [name]: value })
     }
 
+    console.log(userFormData)
+
     const handleFormSubmit = async (event) => {
         event.preventDefault()
 
@@ -39,7 +41,7 @@ function Homepage() {
         try {
             const response = await API.signup(userFormData)
             const { token } = response.data
-            Auth.login(token)
+            auth.login(token)
         } catch (err) {
             setShowAlert(true)
         }
@@ -61,19 +63,19 @@ function Homepage() {
                 { landing === 'login' ? (
                     <>
                         <div>
-                            <input placeholder='username'></input>
-                            <input placeholder='password'></input>
-                            <button>Login</button>
+                            <input name='username' placeholder='username' value={userFormData.username} onChange={handleInputChange}></input>
+                            <input name='password' placeholder='password' value={userFormData.password} onChange={handleInputChange}></input>
+                            <button onSubmit={handleFormSubmit}>Login</button>
                         </div>
                         <p>Don't have an account? <button onClick={() => handleLanding()}>Sign-Up!</button></p>
                     </>
                 ) : (
                     <>
                         <div>
-                            <input placeholder='username'></input>
-                            <input placeholder='password'></input>
-                            <input placeholder='email'></input>
-                            <button>Sign-Up</button>
+                            <input name='username' placeholder='username' value={userFormData.username} onChange={handleInputChange}></input>
+                            <input name='password' placeholder='password' value={userFormData.password} onChange={handleInputChange}></input>
+                            <input name='email' placeholder='email' value={userFormData.email} onChange={handleInputChange}></input>
+                            <button onSubmit={handleFormSubmit}>Sign-Up</button>
                         </div>
                         <p>Already have an account?<button onClick={() => handleLanding()}>Login!</button></p>
                     </>
